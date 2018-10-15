@@ -113,7 +113,7 @@ static char pattern[PATTERN_LEN] = "0110011101001101101000010111001001";
 boolean VERBOSE                  = FALSE;
 boolean DELAY                    = FALSE;
 long    DELAYUS                  = 50;
-boolean PULLUP                   = TRUE; 
+boolean MYPULLUP                 = TRUE; 
 
 
 const byte pinslen               = sizeof(pins)/sizeof(pins[0]);   
@@ -193,7 +193,7 @@ void init_pins(int tck = IGNOREPIN, int tms = IGNOREPIN, int tdi = IGNOREPIN, in
   for (int i = 0; i < pinslen; i++) {
     pinMode(pins[i], INPUT);
     // internal pullups default to logic 1:
-    if (PULLUP) digitalWrite(pins[i], HIGH); 
+    if (MYPULLUP) digitalWrite(pins[i], HIGH); 
   }
   // TCK = output
   if (tck != IGNOREPIN) pinMode(tck, OUTPUT);
@@ -838,8 +838,8 @@ void loop()
     }
     else if(strcmp(command, "pullups") == 0                          || strcmp(command, "r") == 0)
     {
-      if (PULLUP == FALSE) {PULLUP = TRUE;} else {PULLUP = FALSE;}
-      Serial.println(PULLUP ? "Pullups ON" : "Pullups OFF");
+      if (MYPULLUP == FALSE) {MYPULLUP = TRUE;} else {MYPULLUP = FALSE;}
+      Serial.println(MYPULLUP ? "Pullups ON" : "Pullups OFF");
     }
     else if(strcmp(command, "help") == 0                             || strcmp(command, "h") == 0)
       help();
